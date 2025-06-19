@@ -1,4 +1,4 @@
 @tailwind base;
+@import '@fortawesome/fontawesome-svg-core/styles.css';
 @tailwind components;
 @tailwind utilities;
-@import '@fortawesome/fontawesome-svg-core/styles.css';

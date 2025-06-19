@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [cartCount, setCartCount] = useState(0); // You might want to manage this state globally later
@@ -38,9 +39,13 @@ const Navbar = () => {
                 </span>
               )}
             </div>
-            <div className="cursor-pointer">
-              <FontAwesomeIcon icon={faUser} className="text-gray-700 text-xl" />
-            </div>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
           </div>
         </div>
         {/* Navigation Menu */}
@@ -49,7 +54,7 @@ const Navbar = () => {
             <li><Link to="/" className="text-indigo-800 font-medium hover:text-indigo-600">Home</Link></li>
             <li><Link to="/products" className="text-gray-700 hover:text-indigo-600">Products</Link></li>
             <li><Link to="/about" className="text-gray-700 hover:text-indigo-600">About Us</Link></li>
-            <li><Link to="/contact" className="text-gray-700 hover:text-indigo-600">Contact</Link></li>
+            <li><Link to="/contact" className="text-gray-700 hover:text-indigo-600">Contact Us</Link></li>
           </ul>
         </nav>
       </div>
