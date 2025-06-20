@@ -12,7 +12,7 @@ const ContactUs = () => {
     <div className='pt-20'>
 
       {/* Hero Banner */}
-      <section className="relative h-[400px] overflow-hidden">
+      <section className="relative h-[300px] lg:h-[500px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/80 to-transparent z-10"></div>
         <img
           src="https://readdy.ai/api/search-image?query=contact%20us%20page%20background%20image%20handloom%20textiles&width=1440&height=400&seq=200&orientation=landscape"

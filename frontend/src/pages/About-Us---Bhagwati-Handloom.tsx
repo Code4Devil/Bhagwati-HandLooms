@@ -158,7 +158,7 @@ return (
 
 <main>
 {/* Hero Banner */}
-<section className="relative h-[500px]  overflow-hidden">
+<section className="relative h-[300px] lg:h-[500px]  overflow-hidden">
 <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/80 to-transparent z-10"></div>
 <img
 src="https://readdy.ai/api/search-image?query=artisans%2520working%2520on%2520traditional%2520handlooms%2520in%2520a%2520well-lit%2520workshop%2520with%2520colorful%2520textiles%2520hanging%2520in%2520the%2520background%252C%2520showing%2520the%2520heritage%2520of%2520handloom%2520weaving%252C%2520warm%2520golden%2520light%2520streaming%2520through%2520windows%252C%2520authentic%2520craft%2520environment%252C%2520professional%2520photography&width=1440&height=500&seq=111&orientation=landscape"

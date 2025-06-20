@@ -111,7 +111,7 @@ return (
 
 <main>
 {/* Hero Banner */}
-<section className="relative h-[500px] overflow-hidden">
+<section className="relative h-[300px] lg:h-[500px] overflow-hidden">
 {slides.map((slide, index) => (
 <div
 key={slide.id}

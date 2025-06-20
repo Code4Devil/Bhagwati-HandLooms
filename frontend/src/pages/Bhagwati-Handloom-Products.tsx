@@ -154,7 +154,7 @@ const App: React.FC<{ handleAddToCart: (product: Product) => void }> = ({ handle
     <div className="min-h-screen pt-20 bg-gray-50">
       <main>
         {/* Hero Banner */}
-        <section className="relative h-[400px] overflow-hidden">
+        <section className="relative h-[300px] lg:h-[500px] overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/80 to-transparent z-10"></div>
           <img
             src="https://readdy.ai/api/search-image?query=beautiful%2520display%2520of%2520various%2520colorful%2520handloom%2520textiles%2520including%2520bedsheets%2520curtains%2520and%2520table%2520runners%2520arranged%2520in%2520an%2520elegant%2520showroom%2520setting%2520with%2520soft%2520natural%2520lighting%2520highlighting%2520the%2520intricate%2520patterns%2520and%2520textures%2520professional%2520interior%2520photography%2520with%2520warm%2520tones&width=1440&height=400&seq=200&orientation=landscape"
