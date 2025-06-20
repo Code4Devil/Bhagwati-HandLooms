@@ -164,7 +164,7 @@ const App: React.FC<{ handleAddToCart: (product: Product) => void }> = ({ handle
           <div className="absolute inset-0 flex items-center z-20">
             <div className="container mx-auto px-6 md:px-12">
               <div className="max-w-lg">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Our Collections</h2>
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Our Collections</h2>
                 <p className="text-xl text-white mb-8">Discover our handcrafted textiles, each piece telling a unique story of tradition and artistry.</p>
                 <div className="flex flex-wrap gap-2">
                   {categories.slice(1, 5).map(category => (

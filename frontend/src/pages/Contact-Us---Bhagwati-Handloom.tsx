@@ -22,7 +22,7 @@ const ContactUs = () => {
         <div className="absolute inset-0 flex items-center z-20">
           <div className="container mx-auto px-6 md:px-12">
             <div className="max-w-lg">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Get in Touch</h2>
               <p className="text-xl text-white mb-8">We're here to help! Reach out to us for any inquiries, support, or feedback.</p>
             </div>
           </div>
