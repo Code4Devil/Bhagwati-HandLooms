@@ -26,6 +26,7 @@ interface Product {
   image_url?: string;
   image?: string;
   dimensions?: string;
+  stock: number;
 }
 
 const App: React.FC<{ handleAddToCart: (product: Product) => void }> = ({ handleAddToCart }) => {
@@ -36,7 +37,7 @@ useEffect(() => {
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from('products')
-      .select('*');
+      .select('*, stock');
 
     if (error) {
       console.error('Error fetching products:', error);
@@ -212,6 +213,21 @@ className="bg-indigo-700 text-white p-2 rounded-full hover:bg-indigo-800 transit
 <FontAwesomeIcon icon={faShoppingCart} />
 </button>
 </div>
+{product.stock > 0 ? (
+<button
+className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 !rounded-button whitespace-nowrap cursor-pointer"
+onClick={() => handleAddToCart(product)}
+>
+<FontAwesomeIcon icon={faShoppingCart} className="mr-2" /> Add to Cart
+</button>
+) : (
+<button
+className="mt-4 w-full bg-gray-400 text-white py-2 rounded-lg text-sm font-medium cursor-not-allowed !rounded-button whitespace-nowrap"
+disabled
+>
+Out of Stock
+</button>
+)}
 </div>
 </div>
 ))}
@@ -250,7 +266,7 @@ className="w-full h-full object-cover object-top hover:scale-105 transition-tran
 <div className="flex justify-between items-center">
 <span className="text-lg font-bold text-gray-900">र{product.price}</span>
 <button
-onClick={handleAddToCart}
+onClick={() => handleAddToCart(product)}
 className="bg-indigo-700 text-white p-2 rounded-full hover:bg-indigo-800 transition-colors duration-300 !rounded-button whitespace-nowrap cursor-pointer"
 >
 <FontAwesomeIcon icon={faShoppingCart} />

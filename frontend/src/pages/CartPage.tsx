@@ -12,7 +12,6 @@ interface CartItem {
   image: string;
   category: string;
   quantity: number;
-  inStock: boolean;
   // Add other properties if they are part of your product structure and used in CartPage
   // For example, if you have a 'description' or 'weight' property
 
@@ -124,20 +123,6 @@ const CartPage: React.FC = () => {
                         </span>
                       </div>
 
-                      {/* Stock Status */}
-                      <div className="mb-4">
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                          item.inStock 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800'
-                        }`}>
-                          <div className={`w-2 h-2 rounded-full ${
-                            item.inStock ? 'bg-green-500' : 'bg-red-500'
-                          }`} />
-                          {item.inStock ? 'In Stock' : 'Out of Stock'}
-                        </span>
-                      </div>
-
                       {/* Price and Quantity */}
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
@@ -164,8 +149,7 @@ const CartPage: React.FC = () => {
                           </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            disabled={!item.inStock}
-                            className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-colors duration-200"
+                            className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-200"
                           >
                             <Plus className="w-4 h-4" />
                           </button>
