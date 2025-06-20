@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
-const Navbar = () => {
-  const [cartCount, setCartCount] = useState(0); // You might want to manage this state globally later
+const Navbar = ({ cartCount, isCartOpen, toggleCart }) => {
+  const location = useLocation();
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm fixed top-0 w-full z-50">
       <div className="container mx-auto px-4">
         {/* Top Navigation */}
         <div className="flex items-center justify-between py-4">
@@ -31,12 +31,26 @@ const Navbar = () => {
           </div>
           {/* Icons */}
           <div className="flex items-center space-x-6">
-            <div className="relative cursor-pointer">
+            <div className="relative cursor-pointer" onClick={toggleCart}>
               <FontAwesomeIcon icon={faShoppingCart} className="text-gray-700 text-xl" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {cartCount}
                 </span>
+              )}
+              {isCartOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-4">
+                  <h3 className="text-lg font-semibold mb-2">Your Cart</h3>
+                  {cartCount === 0 ? (
+                    <p className="text-gray-600">Your cart is empty.</p>
+                  ) : (
+                    <>
+                      <p className="text-gray-600">Items in cart: {cartCount}</p>
+                      {/* You can add more detailed cart items here later */}
+                      <Link to="/cart" className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 text-center block">View Cart</Link>
+                    </>
+                  )}
+                </div>
               )}
             </div>
             <SignedIn>
@@ -44,17 +58,16 @@ const Navbar = () => {
             </SignedIn>
             <SignedOut>
               <SignInButton />
-              <SignUpButton />
             </SignedOut>
           </div>
         </div>
         {/* Navigation Menu */}
         <nav className="py-3 border-t">
           <ul className="flex space-x-8 justify-center">
-            <li><Link to="/" className="text-indigo-800 font-medium hover:text-indigo-600">Home</Link></li>
-            <li><Link to="/products" className="text-gray-700 hover:text-indigo-600">Products</Link></li>
-            <li><Link to="/about" className="text-gray-700 hover:text-indigo-600">About Us</Link></li>
-            <li><Link to="/contact" className="text-gray-700 hover:text-indigo-600">Contact Us</Link></li>
+            <li><Link to="/" className={location.pathname === '/' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Home</Link></li>
+            <li><Link to="/products" className={location.pathname === '/products' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Products</Link></li>
+            <li><Link to="/about" className={location.pathname === '/about' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>About Us</Link></li>
+            <li><Link to="/contact" className={location.pathname === '/contact' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Contact Us</Link></li>
           </ul>
         </nav>
       </div>

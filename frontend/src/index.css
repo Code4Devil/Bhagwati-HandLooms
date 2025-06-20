@@ -2,3 +2,7 @@
 @import '@fortawesome/fontawesome-svg-core/styles.css';
 @tailwind components;
 @tailwind utilities;
+
+.no-underline-important {
+  text-decoration: none !important;
+}
