@@ -11,12 +11,11 @@ interface CartItem {
   image: string;
 }
 
-interface CheckoutPageProps {
-  cart: CartItem[];
-}
+import { useCart } from '../context/CartContext';
 
-function App({ cart }: CheckoutPageProps) {
-  console.log('CheckoutPage - Received cart:', cart); // Log the entire cart prop
+function App() {
+  const { cartItems: cart } = useCart();
+  // console.log('CheckoutPage - Received cart:', cart); // Log the entire cart prop
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     // Personal Information
@@ -31,11 +30,11 @@ function App({ cart }: CheckoutPageProps) {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States',
+    country: 'India',
   });
 
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 100 ? 0 : 15.99; // Example: Free shipping over $100
+  const shipping = subtotal >= 100000 ? 0 : 500;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
@@ -347,10 +346,8 @@ function App({ cart }: CheckoutPageProps) {
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-gray-400"
                     >
-                      <option value="United States">United States</option>
-                      <option value="Canada">Canada</option>
-                      <option value="United Kingdom">United Kingdom</option>
-                      <option value="Australia">Australia</option>
+                      <option value="India">India</option>
+                    
                     </select>
                   </div>
                 </div>
@@ -410,7 +407,7 @@ function App({ cart }: CheckoutPageProps) {
                               <p className="text-gray-600">Quantity: {item.quantity}</p>
                             </div>
                             <p className="font-semibold text-gray-900">
-                              ${(item.price * item.quantity).toFixed(2)}
+                              ₹{(item.price * item.quantity).toFixed(2)}
                             </p>
                           </div>
                         ))}
@@ -486,7 +483,7 @@ function App({ cart }: CheckoutPageProps) {
                         <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
                       </div>
                       <p className="text-sm font-semibold text-gray-900">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ₹{(item.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   ))}
@@ -496,20 +493,20 @@ function App({ cart }: CheckoutPageProps) {
               <div className="border-t border-gray-200 mt-6 pt-6 space-y-3">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span>${shipping.toFixed(2)}</span>
+                  <span>₹{shipping.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Tax</span>
-                  <span>${tax.toFixed(2)}</span>
+                  <span>₹{tax.toFixed(2)}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between text-lg font-bold text-gray-900">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>₹{total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>

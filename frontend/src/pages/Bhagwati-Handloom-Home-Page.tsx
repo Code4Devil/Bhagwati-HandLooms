@@ -198,11 +198,7 @@ className="w-full h-full object-cover object-top hover:scale-105 transition-tran
 </div>
 <div className="p-4">
 <h3 className="text-lg font-medium text-gray-800 mb-2 h-14 line-clamp-2">{product.name}</h3>
-<div className="flex text-yellow-400 mb-2">
-{[...Array(5)].map((_, i) => (
-<FontAwesomeIcon key={i} icon={faStar} className={`${i < product.rating ? 'text-yellow-400' : 'text-gray-300'}`} />
-))}
-</div>
+
 <div className="flex justify-between items-center">
 <span className="text-lg font-bold text-gray-900">र{product.price}</span>
 <button

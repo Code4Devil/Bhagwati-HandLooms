@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Minus, Trash2, ShoppingBag, ArrowRight, Shield, Truck, CreditCard, Heart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 
 interface CartItem {
@@ -12,36 +13,23 @@ interface CartItem {
   category: string;
   quantity: number;
   inStock: boolean;
+  // Add other properties if they are part of your product structure and used in CartPage
+  // For example, if you have a 'description' or 'weight' property
+
   rating: number;
   reviews: number;
 }
 
-interface CartPageProps {
-  cart: CartItem[];
-}
-
-const CartPage: React.FC<CartPageProps> = ({ cart }) => {
+const CartPage: React.FC = () => {
   const [isCheckingOut, setIsCheckingOut] = React.useState(false);
 
-  const cartItems = cart;
-
-  const updateQuantity = (id: number, newQuantity: number) => {
-    // This function would typically dispatch an action to update the cart in a global state manager
-    // For now, it's a placeholder as cart state is managed in App.jsx
-    console.log(`Update quantity for item ${id} to ${newQuantity}`);
-  };
-
-  const removeItem = (id: number) => {
-    // This function would typically dispatch an action to remove an item from the cart in a global state manager
-    // For now, it's a placeholder as cart state is managed in App.jsx
-    console.log(`Remove item ${id}`);
-  };
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
 
 
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const discount = 0;
-  const shipping = subtotal > 75 ? 0 : 8.99;
+  const shipping = subtotal >= 100000 ? 0 : 500;
   const tax = (subtotal - discount) * 0.08;
   const total = subtotal - discount + shipping + tax;
 
@@ -55,7 +43,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 mt-20 ">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center max-w-md mx-auto">
             <div className="mb-8">
@@ -64,9 +52,9 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
               <p className="text-slate-600 text-lg mb-8">
                 Looks like you haven't added anything to your cart yet. Start shopping to fill it up!
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <Link to="/products" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl inline-block">
                 Start Shopping
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -115,7 +103,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
                           <p className="text-slate-500 text-sm">{item.category}</p>
                         </div>
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeFromCart(item.id)}
                           className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors duration-200"
                         >
                           <Trash2 className="w-5 h-5" />

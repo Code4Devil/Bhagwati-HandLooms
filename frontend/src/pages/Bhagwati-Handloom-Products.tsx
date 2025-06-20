@@ -358,7 +358,18 @@ const App: React.FC<{ handleAddToCart: (product: Product) => void }> = ({ handle
                           {product.dimensions && <p className="text-sm text-gray-600 mb-3">Dimensions: {product.dimensions}</p>}
                           {product.stock > 0 ? (
                             <button
-                              onClick={() => handleAddToCart(product)}
+                              onClick={() => handleAddToCart({
+                                id: product.id,
+                                name: product.name,
+                                price: product.price,
+                                originalPrice: product.discountPrice,
+                                image: product.image_url || product.image || '/src/assets/default-product-image.png',
+                                category: product.category,
+                                quantity: 1, // Quantity is handled by CartContext, but a base of 1 is needed for initial add
+                                inStock: product.stock > 0,
+                                rating: 0, // Assuming a default or fetching later if needed
+                                reviews: 0 // Assuming a default or fetching later if needed
+                              })}
                               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300 flex items-center justify-center mt-4"
                             >
                               <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />

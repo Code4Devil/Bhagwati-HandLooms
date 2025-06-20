@@ -8,6 +8,7 @@ import Adminpanel from './pages/admin-panel/Adminpanel';
 import CartPage from './pages/CartPage.tsx';
 import CheckoutPage from './pages/CheckoutPage';
 import { useState, useEffect } from 'react';
+import { useCart } from './context/CartContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import LoginPopup from './components/LoginPopup';
@@ -18,27 +19,17 @@ import { supabase } from './supabaseClient';
 import './App.css';
 
 function App() {
-  const [cart, setCart] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+
+  const { addToCart, getTotalItems } = useCart();
 
   const handleAddToCart = (product) => {
     if (!user?.id) {
       setIsLoginPopupOpen(true);
       return;
     }
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-    setCartCount((prevCount) => prevCount + 1);
+    addToCart(product);
   };
 
   const { user } = useUser();
@@ -113,20 +104,19 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <AppContent
-        cartCount={cartCount}
+        cartCount={getTotalItems()}
         isCartOpen={isCartOpen}
         toggleCart={() => setIsCartOpen(!isCartOpen)}
         handleAddToCart={handleAddToCart}
         isLoginPopupOpen={isLoginPopupOpen}
         setIsLoginPopupOpen={setIsLoginPopupOpen}
-        cart={cart}
       />
       <LoginPopup isOpen={isLoginPopupOpen} onClose={() => setIsLoginPopupOpen(false)} />
     </BrowserRouter>
   );
 }
 
-function AppContent({ cartCount, isCartOpen, toggleCart, handleAddToCart, isLoginPopupOpen, setIsLoginPopupOpen, cart }) {
+function AppContent({ cartCount, isCartOpen, toggleCart, handleAddToCart, isLoginPopupOpen, setIsLoginPopupOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useUser();
@@ -161,8 +151,8 @@ function AppContent({ cartCount, isCartOpen, toggleCart, handleAddToCart, isLogi
             </ProtectedRoute>
           }
         />
-          <Route path="/cart" element={<CartPage cart={cart} />} />
-          <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
       </div>
     );
