@@ -41,8 +41,12 @@ useEffect(() => {
     if (error) {
       console.error('Error fetching products:', error);
     } else {
+      const productsWithImages = data.map(product => ({
+        ...product,
+        image: product.image_url || product.image // Prioritize image_url, fallback to image
+      }));
       // Shuffle products and take a subset for best sellers
-      const shuffled = data.sort(() => 0.5 - Math.random());
+      const shuffled = productsWithImages.sort(() => 0.5 - Math.random());
       setProducts(shuffled.slice(0, 5)); // Displaying 5 random products as best sellers
     }
   };

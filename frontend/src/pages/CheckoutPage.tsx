@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShoppingCart, User, Truck, CreditCard, Check, MapPin, Phone, Mail } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 
@@ -14,7 +15,8 @@ interface CartItem {
 import { useCart } from '../context/CartContext';
 
 function App() {
-  const { cartItems: cart } = useCart();
+  const { cartItems: cart, clearCart } = useCart();
+  const navigate = useNavigate();
   // console.log('CheckoutPage - Received cart:', cart); // Log the entire cart prop
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -116,7 +118,8 @@ function App() {
 
       console.log('Order placed successfully:', newOrder);
       alert('Order Completed Successfully!');
-      // Optionally, navigate to a confirmation page or clear the cart
+      clearCart();
+      navigate('/');
     } catch (error: any) {
       console.error('Error placing order:', error.message);
       alert(`Error placing order: ${error.message}`);
