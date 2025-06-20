@@ -128,9 +128,9 @@ className="w-full h-full object-cover object-top"
 <div className="max-w-lg">
 <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">{slide.title}</h2>
 <p className="text-xl text-white mb-8">{slide.description}</p>
-<button className="bg-white text-indigo-800 px-8 py-3 rounded-lg font-medium hover:bg-indigo-100 transition duration-300 !rounded-button whitespace-nowrap cursor-pointer">
+<Link to="/products" className="bg-white text-indigo-800 px-8 py-3 rounded-lg font-medium hover:bg-indigo-100 transition duration-300 !rounded-button whitespace-nowrap cursor-pointer">
 {slide.buttonText}
-</button>
+</Link>
 </div>
 </div>
 </div>
@@ -181,9 +181,9 @@ View Collection
 <div className="container mx-auto px-4">
 <div className="flex justify-between items-center mb-12">
 <h2 className="text-3xl font-bold text-gray-800">Best Sellers</h2>
-<button className="text-indigo-700 hover:text-indigo-900 font-medium flex items-center cursor-pointer">
+<Link to="/products" className="text-indigo-700 hover:text-indigo-900 font-medium flex items-center cursor-pointer">
 View All <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-</button>
+</Link>
 </div>
 <div className="relative">
 <div className="flex overflow-x-auto pb-6 space-x-6 scrollbar-hide">
