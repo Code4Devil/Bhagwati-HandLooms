@@ -146,7 +146,7 @@ function AppContent({ cartCount, isCartOpen, toggleCart, handleAddToCart, isLogi
   }, [user, location.pathname, navigate]);
 
   return (
-    <>
+    <div className='overflow-x-hidden'>
       {!isAdminRoute && <Navbar cartCount={cartCount} isCartOpen={isCartOpen} toggleCart={toggleCart} />}
       <Routes>
         <Route path="/" element={<HomePage handleAddToCart={handleAddToCart} />} />
@@ -164,7 +164,7 @@ function AppContent({ cartCount, isCartOpen, toggleCart, handleAddToCart, isLogi
           <Route path="/cart" element={<CartPage cart={cart} />} />
           <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
         </Routes>
-      </>
+      </div>
     );
   }
 export default App;
