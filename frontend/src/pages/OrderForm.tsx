@@ -67,7 +67,7 @@ const OrderForm: React.FC = () => {
       };
 
       try {
-        const response = await fetch('http://localhost:3001/orders', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

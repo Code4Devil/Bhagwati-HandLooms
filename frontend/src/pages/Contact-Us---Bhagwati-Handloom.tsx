@@ -58,13 +58,13 @@ const ContactUs = () => {
         <div className="bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Location</h2>
           <div className="rounded-lg overflow-hidden shadow-lg" style={{ height: '300px', width: '100%' }}>
-            <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+            <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
               <GoogleMap
                 mapContainerStyle={{ height: '100%', width: '100%' }}
-                center={{ lat: 28.6139, lng: 77.2090 }} // Example: New Delhi coordinates
-                zoom={10}
+                center={{ lat: 29.3917604, lng: 76.9498244 }}
+                zoom={15}
               >
-                <Marker position={{ lat: 28.6139, lng: 77.2090 }} />
+                <Marker position={{ lat: 29.3917604, lng: 76.9498244 }} />
               </GoogleMap>
             </LoadScript>
           </div>
