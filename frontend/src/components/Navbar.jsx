@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShoppingCart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 const Navbar = ({ cartCount, isCartOpen, toggleCart }) => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <header className="bg-white shadow-sm fixed top-0 w-full z-50">
       <div className="container mx-auto px-4">
         {/* Top Navigation */}
         <div className="flex items-center justify-between py-4">
+          {/* Mobile Menu Button */}
+        
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-indigo-800">Bhagwati Handloom</h1>
+          <div className="flex-shrink-0 flex gap-4 items-center justify-between">
+          <button onClick={toggleMobileMenu} className="text-gray-700 text-xl focus:outline-none md:hidden">
+              <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
+            </button>
+            <h1 className="text-2xl font-bold text-indigo-800 font-astrid lg:text-3xl">Bhagwati Handloom</h1>
           </div>
           {/* Search Bar */}
-          <div className="hidden md:block w-full max-w-md mx-4">
+          <div className="hidden lg:block w-full max-w-md mx-4">
             <div className="relative">
               <input
                 type="text"
@@ -29,6 +39,8 @@ const Navbar = ({ cartCount, isCartOpen, toggleCart }) => {
               </button>
             </div>
           </div>
+
+
           {/* Icons */}
           <div className="flex items-center space-x-6">
             <div className="relative cursor-pointer" onClick={toggleCart}>
@@ -60,9 +72,10 @@ const Navbar = ({ cartCount, isCartOpen, toggleCart }) => {
               <SignInButton />
             </SignedOut>
           </div>
+
         </div>
-        {/* Navigation Menu */}
-        <nav className="py-3 border-t">
+        {/* Navigation Menu - Desktop */}
+        <nav className="hidden md:block py-3 border-t">
           <ul className="flex space-x-8 justify-center">
             <li><Link to="/" className={location.pathname === '/' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Home</Link></li>
             <li><Link to="/products" className={location.pathname === '/products' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Products</Link></li>
@@ -70,6 +83,18 @@ const Navbar = ({ cartCount, isCartOpen, toggleCart }) => {
             <li><Link to="/contact" className={location.pathname === '/contact' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'}>Contact Us</Link></li>
           </ul>
         </nav>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden bg-white py-4 border-t absolute top-full left-0 w-full">
+            <ul className="flex flex-col space-y-4 px-4 items-end">
+              <li><Link to="/" className={location.pathname === '/' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'} onClick={toggleMobileMenu}>Home</Link></li>
+              <li><Link to="/products" className={location.pathname === '/products' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'} onClick={toggleMobileMenu}>Products</Link></li>
+              <li><Link to="/about" className={location.pathname === '/about' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'} onClick={toggleMobileMenu}>About Us</Link></li>
+              <li><Link to="/contact" className={location.pathname === '/contact' ? 'text-indigo-800 font-medium' : 'text-gray-700 hover:text-indigo-600'} onClick={toggleMobileMenu}>Contact Us</Link></li>
+            </ul>
+          </nav>
+        )}
       </div>
     </header>
   );

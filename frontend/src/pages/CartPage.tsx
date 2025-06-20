@@ -21,9 +21,7 @@ interface CartPageProps {
 }
 
 const CartPage: React.FC<CartPageProps> = ({ cart }) => {
-  const [promoCode, setPromoCode] = useState('');
-  const [promoApplied, setPromoApplied] = useState(false);
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = React.useState(false);
 
   const cartItems = cart;
 
@@ -39,14 +37,10 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
     console.log(`Remove item ${id}`);
   };
 
-  const applyPromoCode = () => {
-    if (promoCode.toLowerCase() === 'save10') {
-      setPromoApplied(true);
-    }
-  };
+
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const discount = promoApplied ? subtotal * 0.1 : 0;
+  const discount = 0;
   const shipping = subtotal > 75 ? 0 : 8.99;
   const tax = (subtotal - discount) * 0.08;
   const total = subtotal - discount + shipping + tax;
@@ -202,45 +196,15 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
 
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Order Summary</h2>
 
-              {/* Promo Code */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Promo Code
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    placeholder="Enter code"
-                    className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  <button
-                    onClick={applyPromoCode}
-                    className="px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-900 transition-colors duration-200"
-                  >
-                    Apply
-                  </button>
-                </div>
-                {promoApplied && (
-                  <p className="text-green-600 text-sm mt-2 font-medium">
-                    ✓ Promo code applied! 10% off
-                  </p>
-                )}
-              </div>
+
 
               {/* Price Breakdown */}
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-slate-600">
                   <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>₹{subtotal.toFixed(2)}</span>
                 </div>
-                {promoApplied && (
-                  <div className="flex justify-between text-green-600">
-                    <span>Discount (10%)</span>
-                    <span>₹{discount.toFixed(2)}</span>
-                  </div>
-                )}
+
                 <div className="flex justify-between text-slate-600">
                   <span>Shipping</span>
                   <span>{shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`}</span>

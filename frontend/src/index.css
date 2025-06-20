@@ -6,3 +6,14 @@
 .no-underline-important {
   text-decoration: none !important;
 }
+
+@font-face {
+  font-family: 'Astrid';
+  src: url('./assets/astrid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-astrid {
+  font-family: 'Astrid', serif;
+}
