@@ -160,7 +160,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
                           <span className="text-2xl font-bold text-slate-800">
-                            ${item.price.toFixed(2)}
+                          ₹{item.price.toFixed(2)}
                           </span>
                           {item.originalPrice && (
                             <span className="text-lg text-slate-400 line-through">
@@ -238,21 +238,21 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
                 {promoApplied && (
                   <div className="flex justify-between text-green-600">
                     <span>Discount (10%)</span>
-                    <span>-${discount.toFixed(2)}</span>
+                    <span>₹{discount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-slate-600">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                  <span>{shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>Tax</span>
-                  <span>${tax.toFixed(2)}</span>
+                  <span>₹{tax.toFixed(2)}</span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-xl font-bold text-slate-800">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>₹{total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -262,7 +262,7 @@ const CartPage: React.FC<CartPageProps> = ({ cart }) => {
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-6">
                   <p className="text-amber-800 text-sm">
                     <Truck className="w-4 h-4 inline mr-1" />
-                    Add ${(75 - subtotal).toFixed(2)} more for free shipping!
+                    Add ₹{(75 - subtotal).toFixed(2)} more for free shipping!
                   </p>
                 </div>
               )}
