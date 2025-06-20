@@ -213,21 +213,7 @@ className="bg-indigo-700 text-white p-2 rounded-full hover:bg-indigo-800 transit
 <FontAwesomeIcon icon={faShoppingCart} />
 </button>
 </div>
-{product.stock > 0 ? (
-<button
-className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition duration-300 !rounded-button whitespace-nowrap cursor-pointer"
-onClick={() => handleAddToCart(product)}
->
-<FontAwesomeIcon icon={faShoppingCart} className="mr-2" /> Add to Cart
-</button>
-) : (
-<button
-className="mt-4 w-full bg-gray-400 text-white py-2 rounded-lg text-sm font-medium cursor-not-allowed !rounded-button whitespace-nowrap"
-disabled
->
-Out of Stock
-</button>
-)}
+
 </div>
 </div>
 ))}

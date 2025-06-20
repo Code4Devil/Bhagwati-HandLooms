@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const discount = 0;
-  const shipping = subtotal >= 100000 ? 0 : 500;
+  const shipping = subtotal < 10000 ? 500 : 0;
   const tax = (subtotal - discount) * 0.08;
   const total = subtotal - discount + shipping + tax;
 
