@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Minus, Trash2, ShoppingBag, ArrowRight, Shield, Truck, CreditCard, Heart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { getFallbackImageUrl } from '../utils/imageUtils';
 
 
 interface CartItem {
@@ -80,9 +81,12 @@ const CartPage: React.FC = () => {
                     {/* Product Image */}
                     <div className="relative group">
                       <img
-                        src={item.image}
+                        src={item.image || getFallbackImageUrl()}
                         alt={item.name}
                         className="w-full md:w-32 h-48 md:h-32 object-cover rounded-xl transition-transform duration-200 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.src = getFallbackImageUrl();
+                        }}
                       />
                       {item.originalPrice && (
                         <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-semibold">

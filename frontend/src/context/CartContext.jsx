@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { getProductImageUrl } from '../utils/imageUtils';
 
 const CartContext = createContext();
 
@@ -29,7 +30,9 @@ export const CartProvider = ({ children }) => {
         id: product.id,
         name: product.name,
         price: product.price,
-        image: product.image,
+        image: getProductImageUrl(product),
+        originalPrice: product.originalPrice,
+        category: product.category,
         stock: product.stock,
         // Add other necessary serializable properties here
         // e.g., description: product.description, category: product.category, etc.
@@ -74,6 +77,15 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
   };
 
+  const getItemQuantity = (productId) => {
+    const item = cartItems.find((item) => item.id === productId);
+    return item ? item.quantity : 0;
+  };
+
+  const isInCart = (productId) => {
+    return cartItems.some((item) => item.id === productId);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -84,6 +96,8 @@ export const CartProvider = ({ children }) => {
         clearCart,
         getTotalItems,
         getTotalPrice,
+        getItemQuantity,
+        isInCart,
       }}
     >
       {children}

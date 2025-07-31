@@ -16,6 +16,7 @@ import {
   faShoppingCart,
   faChevronLeft
 } from '@fortawesome/free-solid-svg-icons';
+import AddToCartButton from '../components/AddToCartButton';
 
 interface Product {
   id: string;
@@ -356,33 +357,20 @@ const App: React.FC<{ handleAddToCart: (product: Product) => void }> = ({ handle
                           </div>
                           <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
                           {product.dimensions && <p className="text-sm text-gray-600 mb-3">Dimensions: {product.dimensions}</p>}
-                          {product.stock > 0 ? (
-                            <button
-                              onClick={() => handleAddToCart({
-                                id: product.id,
-                                name: product.name,
-                                price: product.price,
-                                originalPrice: product.discountPrice,
-                                image: product.image_url || product.image || '/src/assets/default-product-image.png',
-                                category: product.category,
-                                quantity: 1, // Quantity is handled by CartContext, but a base of 1 is needed for initial add
-                                inStock: product.stock > 0,
-                                rating: 0, // Assuming a default or fetching later if needed
-                                reviews: 0 // Assuming a default or fetching later if needed
-                              })}
-                              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300 flex items-center justify-center mt-4"
-                            >
-                              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-                              Add to Cart
-                            </button>
-                          ) : (
-                            <button
-                              disabled
-                              className="w-full bg-gray-400 text-white py-2 px-4 rounded-lg cursor-not-allowed flex items-center justify-center mt-4"
-                            >
-                              Out of Stock
-                            </button>
-                          )}
+                          <AddToCartButton
+                            product={{
+                              id: product.id,
+                              name: product.name,
+                              price: product.price,
+                              originalPrice: product.discountPrice,
+                              image_url: product.image_url || product.image,
+                              category: product.category,
+                              stock: product.stock,
+                            }}
+                            onAddToCart={handleAddToCart}
+                            className="mt-4"
+                            variant="full"
+                          />
                         </div>
                       </div>
                     ))}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { getFallbackImageUrl } from '../utils/imageUtils';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getTotalItems, getTotalPrice } = useCart();
@@ -16,7 +17,14 @@ const Cart = () => {
           ) : (
             cartItems.map((item) => (
               <div key={item.id} className="flex items-center mb-4 border-b pb-4">
-                <img src={item.image_url} alt={item.name} className="w-20 h-20 object-cover rounded-md mr-4" />
+                <img
+                  src={item.image || getFallbackImageUrl()}
+                  alt={item.name}
+                  className="w-20 h-20 object-cover rounded-md mr-4"
+                  onError={(e) => {
+                    e.currentTarget.src = getFallbackImageUrl();
+                  }}
+                />
                 <div className="flex-grow">
                   <h3 className="font-semibold">{item.name}</h3>
                   <p className="text-gray-600">₹{item.price.toFixed(2)}</p>
