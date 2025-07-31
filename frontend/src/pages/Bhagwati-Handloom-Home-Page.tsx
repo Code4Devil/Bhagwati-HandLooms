@@ -14,6 +14,7 @@ import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import AddToCartButton from '../components/AddToCartButton';
 import Footer from '../components/Footer';
 interface Product {
   id: string;
@@ -206,12 +207,18 @@ className="w-full h-full object-cover object-top hover:scale-105 transition-tran
 
 <div className="flex justify-between items-center">
 <span className="text-lg font-bold text-gray-900">र{product.price}</span>
-<button
-onClick={() => handleAddToCart(product)}
-className="bg-indigo-700 text-white p-2 rounded-full hover:bg-indigo-800 transition-colors duration-300 !rounded-button whitespace-nowrap cursor-pointer"
->
-<FontAwesomeIcon icon={faShoppingCart} />
-</button>
+<AddToCartButton
+  product={{
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image_url: product.image,
+    category: product.category,
+    stock: product.stock,
+  }}
+  onAddToCart={handleAddToCart}
+  variant="icon"
+/>
 </div>
 
 </div>
@@ -251,12 +258,18 @@ className="w-full h-full object-cover object-top hover:scale-105 transition-tran
 </div>
 <div className="flex justify-between items-center">
 <span className="text-lg font-bold text-gray-900">र{product.price}</span>
-<button
-onClick={() => handleAddToCart(product)}
-className="bg-indigo-700 text-white p-2 rounded-full hover:bg-indigo-800 transition-colors duration-300 !rounded-button whitespace-nowrap cursor-pointer"
->
-<FontAwesomeIcon icon={faShoppingCart} />
-</button>
+<AddToCartButton
+  product={{
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image_url: product.image,
+    category: product.category,
+    stock: product.stock,
+  }}
+  onAddToCart={handleAddToCart}
+  variant="icon"
+/>
 </div>
 </div>
 </div>
